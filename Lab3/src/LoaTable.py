@@ -195,7 +195,7 @@ class TablePage(Qtt.QDialog):
             sql = 'select * from Loan where ' + st.join(Bs) + ';'
             mtl = ['贷款号', '支行名', '总额度', '已发放额度', '贷款状态', '操作']
             dialog = Stb(self, sql, mtl, "贷款")
-            dialog.show()
+            dialog.exec_()
 
     def DeleteButton(self):
         button = self.sender()
