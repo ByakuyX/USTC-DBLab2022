@@ -124,7 +124,7 @@ class TablePage(Qtt.QDialog):
             sql = 'select * from Client where ' + st.join(Bs) + ';'
             mtl = ['身份证号', '姓名', '电话', '住址', '联系人姓名', '联系人电话', '联系人邮箱', '关系', '操作']
             dialog = Stb(self, sql, mtl, "客户")
-            dialog.show()
+            dialog.exec_()
 
     def DeleteButton(self):
         button = self.sender()

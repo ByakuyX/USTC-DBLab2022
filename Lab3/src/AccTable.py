@@ -239,8 +239,7 @@ class TablePage(Qtt.QDialog):
             mtl = ['账户号', '支行名', '余额', '开户日期', '利率', '货币类型', '操作']
             if len(Bs) > 0:
                 dialog = StbCK(self, sql, mtl, '存款账户')
-                dialog.show()
-                dialog.move(self.pos().x() + self.size().width() // 4, self.pos().y())
+                dialog.exec_()
 
     def SearchButton2(self, Vals):
         if self.ui.Type.text() is '' and not self.ui.nLLL.isChecked() and not self.ui.nLLM.isChecked():
@@ -276,8 +275,7 @@ class TablePage(Qtt.QDialog):
             mtl = ['账户号', '支行名', '余额', '开户日期', '透支额', '操作']
             if len(Bs) > 0:
                 dialog = StbZP(self, sql, mtl, '支票账户')
-                dialog.show()
-                dialog.move(self.pos().x() - self.size().width() // 4, self.pos().y())
+                dialog.exec_()
 
     def DeleteButton1(self):
         button = self.sender()
