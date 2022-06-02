@@ -55,6 +55,4 @@ class LoginDialog(Qtt.QDialog):
                 self.ui.table.setItem(currentRowCount, i, item[i])
             currentRowCount += 1
             self.ui.table.setRowCount(currentRowCount)
-            self.ui.table.setEditTriggers(Qtt.QTableWidget.NoEditTriggers)
-            self.ui.table.setSelectionMode(Qtt.QAbstractItemView.NoSelection) 
 

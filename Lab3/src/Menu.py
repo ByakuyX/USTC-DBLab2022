@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import imp
 from ui.UiMain import Ui_Menu
 from PyQt5.QtWidgets import QMainWindow
 from src.Login import LoginDialog

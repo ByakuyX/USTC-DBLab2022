@@ -24,16 +24,16 @@ create table Client
    Contact_Name    varchar(50) not null,
    Contact_Email   varchar(50),
    Contact_Tel     varchar(50),
-   Relation		   varchar(50)
+   Relation		    varchar(50)
 );
 
 # 账户
 create table Account
 (
-   Account_ID     varchar(50) not null primary key,
-   Bank_Name      varchar(50) not null,
-   Balance        float(15)   not null,
-   Opening_Date   date        not null
+   Account_ID      varchar(50) not null primary key,
+   Bank_Name       varchar(50) not null,
+   Balance         float(15)   not null,
+   Opening_Date    date        not null
 );
 alter table Account add constraint FK_Open foreign key (Bank_Name)
       references Bank (Bank_Name);
@@ -41,9 +41,9 @@ alter table Account add constraint FK_Open foreign key (Bank_Name)
 # 储蓄账户
 create table Saving_Account
 (
-   Account_ID     varchar(50) not null primary key,
-   Interest_Rate  float(15),
-   Currency_Type  varchar(50)
+   Account_ID      varchar(50) not null primary key,
+   Interest_Rate   float(15),
+   Currency_Type   varchar(50)
 );
 alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_ID)
       references Account (Account_ID);
@@ -51,8 +51,8 @@ alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_
 # 支票账户
 create table Checking_Account
 (
-   Account_ID     varchar(50) not null primary key,
-   Overdraft      float(15)
+   Account_ID      varchar(50) not null primary key,
+   Overdraft       float(15)
 );
 alter table Checking_Account add constraint FK_Account_Type2 foreign key (Account_ID)
       references Account (Account_ID);
@@ -60,8 +60,8 @@ alter table Checking_Account add constraint FK_Account_Type2 foreign key (Accoun
 # 持有账户
 create table Own
 (
-   Client_ID      varchar(50) not null,
-   Account_ID     varchar(50) not null,
+   Client_ID       varchar(50) not null,
+   Account_ID      varchar(50) not null,
    primary key (Client_ID, Account_ID)
 );
 alter table Own add constraint FK_Own1 foreign key (Client_ID)
@@ -85,11 +85,11 @@ alter table Checking add constraint FK_Checking2 foreign key (Bank_Name)
 # 贷款
 create table Loan
 (
-   Loan_ID        varchar(50) not null primary key,
-   Bank_Name      varchar(50) not null,
-   Loan_Amount    float(15)   not null,
-   Pay_already    float(15)   not null,
-   Loan_Status	  varchar(50) not null
+   Loan_ID         varchar(50) not null primary key,
+   Bank_Name       varchar(50) not null,
+   Loan_Amount     float(15)   not null,
+   Pay_already     float(15)   not null,
+   Loan_Status	    varchar(50) not null
 );
 alter table Loan add constraint FK_Make_Loan foreign key (Bank_Name)
 	references Bank (Bank_Name);
@@ -97,10 +97,10 @@ alter table Loan add constraint FK_Make_Loan foreign key (Bank_Name)
 # 发放
 create table Pay
 (
-   Pay_ID         varchar(50) not null primary key,
-   Loan_ID        varchar(50) not null,
-   Pay_Amount     float(15)   not null,
-   Pay_Date       date        not null
+   Pay_ID          varchar(50) not null primary key,
+   Loan_ID         varchar(50) not null,
+   Pay_Amount      float(15)   not null,
+   Pay_Date        date        not null
 );
 alter table Pay add constraint FK_Apply foreign key (Loan_ID)
       references Loan (Loan_ID);
@@ -108,8 +108,8 @@ alter table Pay add constraint FK_Apply foreign key (Loan_ID)
 # 持有贷款
 create table Bear
 (
-   Client_ID     varchar(50) not null,
-   Loan_ID       varchar(50) not null,
+   Client_ID       varchar(50) not null,
+   Loan_ID         varchar(50) not null,
    primary key (Client_ID, Loan_ID)
 );
 alter table Bear add constraint FK_Bear1 foreign key (Client_ID)
