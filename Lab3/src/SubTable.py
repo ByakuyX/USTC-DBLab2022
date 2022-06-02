@@ -100,17 +100,24 @@ class TablePage(Qtt.QDialog):
     def DeleteButton(self):
         button = self.sender()
         if button:
-            flag = True
             row = self.ui.table.indexAt(button.parent().pos()).row()
             tid = self.res[row][0]
-            rtt = self.db.execute("select * from client where client_id in (select client_id from own) or client_id in (select client_id from bear);")
-            for rnn in rtt:
-                if tid == str(rnn[0]):
-                    critical(self, "存在关联账户或贷款记录，不能删除")
-                    flag = False
-                    break
-            if flag:
+            rtt = self.db.execute(
+                "select count(*) from own, bear,checking where own.client_id = '" + tid + "' or checking.client_id = '" + tid + "' or bear.client_id = '" + tid + "';")
+            if rtt[0][0] > 0:
+                critical(self, "存在关联账户或贷款记录，不能删除")
+            else:
+                self.db.execute("alter table own drop constraint fk_own1;")
+                self.db.execute("alter table bear drop constraint fk_bear1;")
+                self.db.execute("alter table checking drop constraint fk_checking1;")
                 self.db.execute("delete from Client where Client_ID = '" + tid + "';")
+                self.db.execute(
+                    "alter table Own add constraint FK_Own1 foreign key (Client_ID) references Client (Client_ID);")
+                self.db.execute(
+                    "alter table Bear add constraint FK_Bear1 foreign key (Client_ID) references Client (Client_ID);")
+                self.db.execute(
+                    "alter table Checking add constraint FK_Checking1 foreign key (Client_ID) references Client (Client_ID);")
+
                 self.renderTable()
                 self.parent.renderTable()
 

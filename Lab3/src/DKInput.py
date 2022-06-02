@@ -68,8 +68,3 @@ class LoginDialog(QDialog):
     def eb(self):
         self.close()
 
-
-
-         
-   
-

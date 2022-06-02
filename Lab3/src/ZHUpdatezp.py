@@ -60,12 +60,8 @@ class LoginDialog(QDialog):
                     else:
                         self.db.execute("update Checking_Account set " + Vats[i] + " = null where Account_ID = '" + self.IDf + "';")
             if epy[0] == 1:
-                self.db.execute("alter table Checking drop constraint FK_Checking2;")
                 self.db.execute("update Checking set Bank_Name = '" + Vals[0] + "' where Account_Type = '1' and Bank_Name = '" + self.bank + "' and Client_ID in (select Client_ID from Own where Account_ID = '" + self.IDf + "');")
-                self.db.execute("alter table Checking add constraint FK_Checking2 foreign key (Bank_Name) references Bank (Bank_Name);")
-                self.db.execute("alter table Account drop constraint FK_Open;")
                 self.db.execute("update Account set Bank_Name = '" + Vals[0] + "' where Account_ID = '" + self.IDf + "';")
-                self.db.execute("alter table Account add constraint FK_Open foreign key (Bank_Name) references Bank (Bank_Name);")
                 #print("insert into Client values(" + st.join(Bas) + ")")
             self.close()
 

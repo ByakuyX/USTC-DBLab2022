@@ -85,26 +85,13 @@ class LoginDialog(QDialog):
                 Bas2.append("'" + Vals[5] + "'")
                 Bat2.append(Vats[5])
             self.db.execute("insert into Saving_Account(" + st.join(Bat2) + ") values(" + st.join(Bas2) + ");")
-            Bas3 = ["'" + Vals[0] + "'"]
-            Bat3 = [Vats[0], 'Client_ID']
-            Bas4 = ["'" + Vals[1] + "'", "'1'"]
-            Bat4 = [Vats[1], 'Account_Type', 'Client_ID']
             for cli in Clis:
                 if cli is '':
                     continue
-                Bas3.append("'" + cli + "'")
-                Bas4.append("'" + cli + "'")
-                self.db.execute("insert into Own(" + st.join(Bat3) + ") values(" + st.join(Bas3) + ");")
-                self.db.execute("insert into Checking(" + st.join(Bat4) + ") values(" + st.join(Bas4) + ");")
-                Bas3.pop()
-                Bas4.pop()
+                self.db.execute("insert into Own values('" + Vals[0] + "', '" + cli + "');")
+                self.db.execute("insert into Checking values('" + cli + "', '" + Vals[1] + "', '1');")
             self.parent.renderTable1()
 
     def eb(self):
         self.close()
-
-
-
-         
-   
 

@@ -87,18 +87,8 @@ class LoginDialog(Qtt.QDialog):
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
             tid = self.res[row][0]
-            self.db.execute("alter table Own drop constraint FK_Own1;")
-            self.db.execute("alter table Own drop constraint FK_Own2;")
-            self.db.execute("alter table Checking drop constraint FK_Checking1;")
-            self.db.execute("alter table Checking drop constraint FK_Checking2;")
-
             self.db.execute("delete from Own where Client_ID = '" + tid + "' and Account_ID = '" + self.title + "';")
             self.db.execute("delete from Checking where Client_ID = '" + tid + "' and Account_Type = '" + self.type + "' and Bank_Name = '" + self.bank + "';")
-
-            self.db.execute("alter table Own add constraint FK_Own1 foreign key (Client_ID) references Client (Client_ID);")
-            self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
-            self.db.execute("alter table Checking add constraint FK_Checking1 foreign key (Client_ID) references Client (Client_ID);")
-            self.db.execute("alter table Checking add constraint FK_Checking2 foreign key (Bank_Name) references Bank (Bank_Name);")
             self.renderTable()
     
     def AddButton(self):

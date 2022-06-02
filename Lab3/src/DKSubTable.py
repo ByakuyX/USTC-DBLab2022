@@ -129,7 +129,6 @@ class TablePage(Qtt.QDialog):
             else:
                 lid = self.res[row][0]
                 self.db.execute("alter table Pay drop constraint FK_Apply;")
-                self.db.execute("alter table Bear drop constraint FK_Bear1;")
                 self.db.execute("alter table Bear drop constraint FK_Bear2;")
 
                 self.db.execute("delete from Loan where Loan_ID = '" + lid + "';")
@@ -138,8 +137,6 @@ class TablePage(Qtt.QDialog):
 
                 self.db.execute(
                     "alter table Pay add constraint FK_Apply foreign key (Loan_ID) references Loan (Loan_ID);")
-                self.db.execute(
-                    "alter table Bear add constraint FK_Bear1 foreign key (Client_ID) references Client (Client_ID);")
                 self.db.execute(
                     "alter table Bear add constraint FK_Bear2 foreign key (Loan_ID) references Loan (Loan_ID);")
                 self.renderTable()

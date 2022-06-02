@@ -67,12 +67,15 @@ class LoginDialog(QDialog):
                         self.db.execute("update Client set " + Vats[i] + " = null where Client_ID = '" + self.IDf + "';")
             if epy[0] == 1:
                 self.db.execute("alter table own drop constraint fk_own1;")
-                self.db.execute("alter table loan drop constraint fk_apply;")
+                self.db.execute("alter table bear drop constraint fk_bear1;")
+                self.db.execute("alter table checking drop constraint fk_checking1;")
                 self.db.execute("update Client set Client_ID = '" + Vals[0] + "' where Client_ID = '" + self.IDf + "';")
                 self.db.execute("update Own set Client_ID = '" + Vals[0] + "' where Client_ID = '" + self.IDf + "';")
-                self.db.execute("update Loan set Client_ID = '" + Vals[0] + "' where Client_ID = '" + self.IDf + "';")
+                self.db.execute("update Bear set Client_ID = '" + Vals[0] + "' where Client_ID = '" + self.IDf + "';")
+                self.db.execute("update Checking set Client_ID = '" + Vals[0] + "' where Client_ID = '" + self.IDf + "';")
                 self.db.execute("alter table Own add constraint FK_Own1 foreign key (Client_ID) references Client (Client_ID);")
-                self.db.execute("alter table Loan add constraint FK_Apply foreign key (Client_ID) references Client (Client_ID);")
+                self.db.execute("alter table Bear add constraint FK_Bear1 foreign key (Client_ID) references Client (Client_ID);")
+                self.db.execute("alter table Checking add constraint FK_Checking1 foreign key (Client_ID) references Client (Client_ID);")
                 #print("insert into Client values(" + st.join(Bas) + ")")
             self.close()
 

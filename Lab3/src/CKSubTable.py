@@ -121,26 +121,22 @@ class TablePage(Qtt.QDialog):
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
             tid = self.res[row][0]
-            uid = self.db.execute("select Client_ID from Own where Account_ID = '" + tid + "';")
             rn2 = self.db.execute("select Bank_Name from Account where Account_ID = '" + tid + "';")
 
             self.db.execute("alter table Saving_Account drop constraint FK_Account_Type1;")
-            self.db.execute("alter table Own drop constraint FK_Own1;")
             self.db.execute("alter table Own drop constraint FK_Own2;")
-            self.db.execute("alter table Checking drop constraint FK_Checking1;")
-            self.db.execute("alter table Checking drop constraint FK_Checking2;")
 
             self.db.execute("delete from Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Saving_Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
-            for rnn in uid:
-                self.db.execute("delete from Checking where Client_ID = '" + str(rnn[0]) + "' and Bank_Name = '" + str(rn2[0][0]) + "' and Account_Type = 1")
+            self.db.execute(
+                "delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(
+                    rn2[0][0]) + "' and Account_Type = 2")
 
-            self.db.execute("alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_ID) references Account (Account_ID);")
-            self.db.execute("alter table Own add constraint FK_Own1 foreign key (Client_ID) references Client (Client_ID);")
-            self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
-            self.db.execute("alter table Checking add constraint FK_Checking1 foreign key (Client_ID) references Client (Client_ID);")
-            self.db.execute("alter table Checking add constraint FK_Checking2 foreign key (Bank_Name) references Bank (Bank_Name);")
+            self.db.execute(
+                "alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_ID) references Account (Account_ID);")
+            self.db.execute(
+                "alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
             self.renderTable()
             self.parent.renderTable1()
 

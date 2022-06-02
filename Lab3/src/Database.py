@@ -3,13 +3,9 @@ import MySQLdb
 
 class Database():
     __db = None
-    __error = None
-    
+
     def __init__(self) -> None:
         pass
-
-    def __del__(self):
-        self.close()
 
     def login(self, user, passwd, server_addr, dbname):
         try:
@@ -27,13 +23,10 @@ class Database():
             return res
         
         except MySQLdb.Error as e:
+            print(sql)
             print(e)
             self.__db.rollback()
             return None
-
-    def close(self):
-        if self.__db is not None:
-            self.__db.close()
 
     def isConnected(self):
         return self.__db is not None
