@@ -20,7 +20,7 @@ class LoginDialog(Qtt.QDialog):
         self.db = parent.db
         self.title = title
         bak = self.db.execute("select Bank_Name from Loan where Loan_ID = '" + self.title + "';")
-        self.bank = bak[0][0]
+        self.bank = bak[0][0].replace("'", "''")
         # 初始化配置
         self.initLayout()
         self.renderTable()

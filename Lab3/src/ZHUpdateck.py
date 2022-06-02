@@ -18,7 +18,7 @@ class LoginDialog(QDialog):
         self.parent = parent
         self.IDf = IDf
         bak = self.db.execute("select Bank_Name from Account where Account_ID = '" + self.IDf + "';")
-        self.bank = bak[0][0]
+        self.bank = bak[0][0].replace("'", "''")
         # 绑定登陆按键
         self.ui.OB.clicked.connect(self.ob)
         self.ui.EB.clicked.connect(self.eb)
