@@ -3,6 +3,7 @@ from ui.OWNT import Ui_LoginDialog
 from PyQt5 import QtWidgets as Qtt
 from PyQt5 import QtCore
 from src.Message import critical
+from datetime import date
 
 class LoginDialog(Qtt.QDialog):
     ui = None
@@ -106,6 +107,6 @@ class LoginDialog(Qtt.QDialog):
         elif r3[0][0] > 0:
             critical(self, "此客户在同一银行已持有同类账户")
         else:
-            self.db.execute("insert into Own value('" + tid + "', '" + self.title + "');")
+            self.db.execute("insert into Own value('" + tid + "', '" + self.title + "', '" + str(date.today()) + "');")
             self.db.execute("insert into Checking value('" + tid + "', '" + self.bank + "', '" + self.type + "');")
             self.renderTable()

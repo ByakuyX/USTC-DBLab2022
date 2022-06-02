@@ -82,6 +82,7 @@ create table Own
 (
    Client_ID       varchar(50) not null,
    Account_ID      varchar(50) not null,
+   Visit_Date      date        not null,
    primary key (Client_ID, Account_ID)
 );
 alter table Own add constraint FK_Own1 foreign key (Client_ID)

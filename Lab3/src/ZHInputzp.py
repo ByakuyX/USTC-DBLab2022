@@ -84,7 +84,7 @@ class LoginDialog(QDialog):
             for cli in Clis:
                 if cli is '':
                     continue
-                self.db.execute("insert into Own values('" + cli + "', '" + Vals[0] + "');")
+                self.db.execute("insert into Own values('" + cli + "', '" + Vals[0] + "', '" + Vals[3] + "');")
                 self.db.execute("insert into Checking values('" + cli + "', '" + Vals[1] + "', '2');")
             self.parent.renderTable2()
 
