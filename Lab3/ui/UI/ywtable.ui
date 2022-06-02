@@ -17,6 +17,13 @@
    <item row="1" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>选择支行：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QListWidget" name="list">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

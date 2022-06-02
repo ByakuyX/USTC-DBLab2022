@@ -54,8 +54,7 @@ class TablePage(Qtt.QDialog):
                 if row[i] is None:
                     ro.append('')
                 else:
-                    ro.append(str(row[i]))
-            ro[1] = ro[1].upper()
+                    ro.append(str(row[i]).upper())
             for i in range(0, len(ro)):
                 item.append(Qtt.QTableWidgetItem(ro[i]))
                 item[i].setTextAlignment(QtCore.Qt.AlignCenter)
@@ -103,7 +102,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            dialog = Updzp(self, self.res[row][0])
+            dialog = Updzp(self, self.res[row][0].replace("'", "''"))
             dialog.exec_()
             self.renderTable()
             self.parent.renderTable2()
@@ -112,7 +111,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            dialog = OWN(self, self.res[row][0], '2')
+            dialog = OWN(self, self.res[row][0].replace("'", "''"), '2')
             dialog.exec_()
             self.renderTable()
 
@@ -120,7 +119,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            tid = self.res[row][0]
+            tid = self.res[row][0].replace("'", "''")
             rn2 = self.db.execute("select Bank_Name from Account where Account_ID = '" + tid + "';")
 
             self.db.execute("alter table Checking_Account drop constraint FK_Account_Type2;")
@@ -131,7 +130,7 @@ class TablePage(Qtt.QDialog):
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
             self.db.execute(
                 "delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(
-                    rn2[0][0]) + "' and Account_Type = 2")
+                    rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
 
             self.db.execute(
                 "alter table Checking_Account add constraint FK_Account_Type2 foreign key (Account_ID) references Account (Account_ID);")

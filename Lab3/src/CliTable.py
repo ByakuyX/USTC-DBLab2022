@@ -100,7 +100,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            dialog = Upd(self, self.res[row][0])
+            dialog = Upd(self, self.res[row][0].replace("'", "''"))
             dialog.exec_()
             self.renderTable()
 
@@ -108,14 +108,14 @@ class TablePage(Qtt.QDialog):
         Vals = []
         Vats = ['Client_ID', 'Client_Name', 'Client_Tel', 'Client_Address', 'Contact_Name', 'Contact_Email', 'Contact_Tel', 'Relation']
         Bs = []
-        Vals.append(self.ui.Id.text())
-        Vals.append(self.ui.Name.text())
-        Vals.append(self.ui.Tel.text())
-        Vals.append(self.ui.Addr.text())
-        Vals.append(self.ui.CName.text())
-        Vals.append(self.ui.CTel.text())
-        Vals.append(self.ui.CEm.text())
-        Vals.append(self.ui.Rel.text())
+        Vals.append(self.ui.Id.text().replace("'", "''"))
+        Vals.append(self.ui.Name.text().replace("'", "''"))
+        Vals.append(self.ui.Tel.text().replace("'", "''"))
+        Vals.append(self.ui.Addr.text().replace("'", "''"))
+        Vals.append(self.ui.CName.text().replace("'", "''"))
+        Vals.append(self.ui.CTel.text().replace("'", "''"))
+        Vals.append(self.ui.CEm.text().replace("'", "''"))
+        Vals.append(self.ui.Rel.text().replace("'", "''"))
         for i in range(0, 8):
             if Vals[i] is not '':
                 Bs.append(Vats[i] + " = '" + Vals[i] + "'")
@@ -130,7 +130,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            tid = self.res[row][0]
+            tid = self.res[row][0].replace("'", "''")
             rtt = self.db.execute(
                 "select count(*) from own, bear,checking where own.client_id = '" + tid + "' or checking.client_id = '" + tid + "' or bear.client_id = '" + tid + "';")
             if rtt[0][0] > 0:
@@ -139,14 +139,17 @@ class TablePage(Qtt.QDialog):
                 self.db.execute("alter table own drop constraint fk_own1;")
                 self.db.execute("alter table bear drop constraint fk_bear1;")
                 self.db.execute("alter table checking drop constraint fk_checking1;")
+                self.db.execute("alter table Service drop constraint FK_Service;")
                 self.db.execute("delete from Client where Client_ID = '" + tid + "';")
+                self.db.execute("delete from Service where Client_ID = '" + tid + "';")
                 self.db.execute(
                     "alter table Own add constraint FK_Own1 foreign key (Client_ID) references Client (Client_ID);")
                 self.db.execute(
                     "alter table Bear add constraint FK_Bear1 foreign key (Client_ID) references Client (Client_ID);")
                 self.db.execute(
                     "alter table Checking add constraint FK_Checking1 foreign key (Client_ID) references Client (Client_ID);")
-
+                self.db.execute(
+                    "alter table Service add constraint FK_Service foreign key (Client_ID) references Client (Client_ID);")
                 self.renderTable()
 
             

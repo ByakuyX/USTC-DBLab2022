@@ -23,12 +23,12 @@ class LoginDialog(QDialog):
     def ob(self):
         flag = True
         Vals = []
-        Vals.append(self.ui.Loan_ID.text())
-        Vals.append(self.ui.Bank_Name.text())
-        Vals.append(self.ui.Loan_Amount.text())
+        Vals.append(self.ui.Loan_ID.text().replace("'", "''"))
+        Vals.append(self.ui.Bank_Name.text().replace("'", "''"))
+        Vals.append(self.ui.Loan_Amount.text().replace("'", "''"))
         Vals.append('0')
         Vals.append('未发放')
-        Clis = self.ui.Owners.document().toPlainText().split('\n')
+        Clis = self.ui.Owners.document().toPlainText().replace("'", "''").split('\n')
         Clis = list(set(Clis))
         #**为空，**账户号重复，**银行不存在，**持有者不存在
         res1 = self.db.execute("select count(*) from Loan where Loan_ID = '" + Vals[0] + "';")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ywtable.ui'
+# Form implementation generated from reading ui file 'UI\ywtable.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -19,6 +19,9 @@ class Ui_Dialog(object):
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_2.addWidget(self.label_2)
         self.list = QtWidgets.QListWidget(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -66,6 +69,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "业务统计"))
+        self.label_2.setText(_translate("Dialog", "选择支行："))
         self.box.setItemText(0, _translate("Dialog", "年度统计"))
         self.box.setItemText(1, _translate("Dialog", "季度统计"))
         self.box.setItemText(2, _translate("Dialog", "月度统计"))

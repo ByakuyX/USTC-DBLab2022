@@ -25,16 +25,16 @@ class LoginDialog(QDialog):
         flag = True
         Vals = []
         Vats = ['Account_ID', 'Bank_Name', 'Balance', 'Opening_Date', 'Interest_Rate', 'Currency_Type', 'Client_ID']
-        Vals.append(self.ui.Account_ID.text())
-        Vals.append(self.ui.Bank_Name.text())
-        Vals.append(self.ui.Balance.text())
+        Vals.append(self.ui.Account_ID.text().replace("'", "''"))
+        Vals.append(self.ui.Bank_Name.text().replace("'", "''"))
+        Vals.append(self.ui.Balance.text().replace("'", "''"))
         if self.ui.nOpening_Date.isChecked():
-            Vals.append(self.ui.Opening_Date.text())
+            Vals.append(self.ui.Opening_Date.text().replace("'", "''"))
         else:
             Vals.append(str(date.today()))
-        Vals.append(self.ui.Interest_Rate.text())
-        Vals.append(self.ui.Currency_Type.text())
-        Clis = self.ui.Owners.document().toPlainText().split('\n')
+        Vals.append(self.ui.Interest_Rate.text().replace("'", "''"))
+        Vals.append(self.ui.Currency_Type.text().replace("'", "''"))
+        Clis = self.ui.Owners.document().toPlainText().replace("'", "''").split('\n')
         Clis = list(set(Clis))
         # **非空为空，**账户号重复，**银行不存在，**持有者不存在，**判定失败
         res1 = self.db.execute("select count(*) from Account where Account_ID = '" + Vals[0] + "';")
@@ -88,7 +88,7 @@ class LoginDialog(QDialog):
             for cli in Clis:
                 if cli is '':
                     continue
-                self.db.execute("insert into Own values('" + Vals[0] + "', '" + cli + "');")
+                self.db.execute("insert into Own values('" + cli + "', '" + Vals[0] + "');")
                 self.db.execute("insert into Checking values('" + cli + "', '" + Vals[1] + "', '1');")
             self.parent.renderTable1()
 

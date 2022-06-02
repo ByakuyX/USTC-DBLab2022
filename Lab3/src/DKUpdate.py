@@ -24,11 +24,11 @@ class LoginDialog(QDialog):
 
     def ob(self):
         Vals = []
-        Vals.append(self.ui.ID.text())
+        Vals.append(self.ui.ID.text().replace("'", "''"))
         Vals.append(self.IDf)
-        Vals.append(self.ui.Amount.text())
+        Vals.append(self.ui.Amount.text().replace("'", "''"))
         if self.ui.nDate.isChecked():
-            Vals.append(self.ui.Date.text())
+            Vals.append(self.ui.Date.text().replace("'", "''"))
         else:
             Vals.append(str(date.today()))
         #**ID空/重复，金额过大

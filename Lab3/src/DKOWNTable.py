@@ -48,11 +48,12 @@ class LoginDialog(Qtt.QDialog):
                 if row[i] is None:
                     ro.append('')
                 else:
-                    ro.append(str(row[i]))
+                    ro.append(str(row[i]).upper())
             for i in range(0, len(ro)):
                 item.append(Qtt.QTableWidgetItem(ro[i]))
                 item[i].setTextAlignment(QtCore.Qt.AlignCenter)
                 self.ui.table.setItem(currentRowCount, i, item[i])
             currentRowCount += 1
             self.ui.table.setRowCount(currentRowCount)
-
+            self.ui.table.setEditTriggers(Qtt.QTableWidget.NoEditTriggers)
+            self.ui.table.setSelectionMode(Qtt.QAbstractItemView.NoSelection)

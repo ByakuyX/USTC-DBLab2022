@@ -53,8 +53,7 @@ class TablePage(Qtt.QDialog):
                 if row[i] is None:
                     ro.append('')
                 else:
-                    ro.append(str(row[i]))
-            ro[1] = ro[1].upper()
+                    ro.append(str(row[i]).upper())
             for i in range(0, len(ro)):
                 item.append(Qtt.QTableWidgetItem(ro[i]))
                 item[i].setTextAlignment(QtCore.Qt.AlignCenter)
@@ -103,11 +102,11 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            status = self.res[row][4]
+            status = self.res[row][4].replace("'", "''")
             if status == '已发放':
                 critical(self, "此贷款已发放完毕，不能再次发放")
             else:
-                dialog = Upd(self, self.res[row][0])
+                dialog = Upd(self, self.res[row][0].replace("'", "''"))
                 dialog.exec_()
                 self.renderTable()
                 self.parent.renderTable()
@@ -116,18 +115,18 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            dialog = OWN(self, self.res[row][0])
+            dialog = OWN(self, self.res[row][0].replace("'", "''"))
             dialog.exec_()
 
     def DeleteButton(self):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            status = self.res[row][4]
+            status = self.res[row][4].replace("'", "''")
             if status == '发放中':
                 critical(self, "不能删除处于发放中状态的贷款记录")
             else:
-                lid = self.res[row][0]
+                lid = self.res[row][0].replace("'", "''")
                 self.db.execute("alter table Pay drop constraint FK_Apply;")
                 self.db.execute("alter table Bear drop constraint FK_Bear2;")
 

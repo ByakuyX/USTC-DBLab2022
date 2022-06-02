@@ -29,7 +29,7 @@ class TablePage(Qtt.QDialog):
 
     def initLayout(self):
         self.ui.label.setText(self.dbName + " - 业务统计 - 请选择支行")
-
+        self.ui.box.setEnabled(False)
         self.ui.table.setColumnCount(5)
         self.ui.table.setHorizontalHeaderLabels(['时间', '储蓄金额', '储蓄客户人次', '贷款金额', '贷款客户人次'])
         self.ui.table.horizontalHeader().setSectionResizeMode(Qtt.QHeaderView.Stretch)
@@ -45,7 +45,8 @@ class TablePage(Qtt.QDialog):
 
     def listclick(self, item):
         self.ui.label.setText(self.dbName + " - 业务统计 - " + item.text())
-        self.bank = "'" + item.text() + "'"
+        self.bank = "'" + item.text().replace("'", "''") + "'"
+        self.ui.box.setEnabled(True)
         self.renderTable()
 
     def boxclick(self):
@@ -111,4 +112,6 @@ class TablePage(Qtt.QDialog):
                     self.ui.table.setItem(currentRowCount, i, item[i])
                 currentRowCount += 1
                 self.ui.table.setRowCount(currentRowCount)
+                self.ui.table.setEditTriggers(Qtt.QTableWidget.NoEditTriggers)
+                self.ui.table.setSelectionMode(Qtt.QAbstractItemView.NoSelection)
 

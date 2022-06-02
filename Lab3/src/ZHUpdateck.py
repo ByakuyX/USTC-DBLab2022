@@ -27,11 +27,11 @@ class LoginDialog(QDialog):
     def ob(self):
         Vals = []
         Vats = ['Bank_Name', 'Balance', 'Opening_Date', 'Interest_Rate', 'Currency_Type']
-        Vals.append(self.ui.Bank_Name.text())
-        Vals.append(self.ui.Balance.text())
-        Vals.append(self.ui.Opening_Date.text())
-        Vals.append(self.ui.Interest_Rate.text())
-        Vals.append(self.ui.Currency_Type.text())
+        Vals.append(self.ui.Bank_Name.text().replace("'", "''"))
+        Vals.append(self.ui.Balance.text().replace("'", "''"))
+        Vals.append(self.ui.Opening_Date.text().replace("'", "''"))
+        Vals.append(self.ui.Interest_Rate.text().replace("'", "''"))
+        Vals.append(self.ui.Currency_Type.text().replace("'", "''"))
         epy = [0, 0, 0, 0, 0]
         if self.ui.nBank_Name.isChecked():
             epy[0] = 1

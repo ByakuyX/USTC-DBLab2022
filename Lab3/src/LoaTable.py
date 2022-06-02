@@ -136,7 +136,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            dialog = OWN(self, self.res1[row][0])
+            dialog = OWN(self, self.res1[row][0].replace("'", "''"))
             dialog.exec_()
 
     def AddButton(self):
@@ -147,11 +147,11 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            status = self.res1[row][4]
+            status = self.res1[row][4].replace("'", "''")
             if status == '已发放':
                 critical(self, "此贷款已发放完毕，不能再次发放")
             else:
-                dialog = Upd(self, self.res1[row][0])
+                dialog = Upd(self, self.res1[row][0].replace("'", "''"))
                 dialog.exec_()
                 self.renderTable()
 
@@ -159,16 +159,16 @@ class TablePage(Qtt.QDialog):
         Vals = []
         Vats = ['Loan_ID', 'Bank_Name', 'Loan_Status', 'Loan_Amount', 'Pay_already']
         Bs = []
-        Vals.append(self.ui.Id.text())
-        Vals.append(self.ui.Name.text())
-        Vals.append(self.ui.status.currentText())
+        Vals.append(self.ui.Id.text().replace("'", "''"))
+        Vals.append(self.ui.Name.text().replace("'", "''"))
+        Vals.append(self.ui.status.currentText().replace("'", "''"))
 
-        Vals.append(self.ui.amountL.text())
-        Vals.append(self.ui.amountM.text())
-        Vals.append(self.ui.payL.text())
-        Vals.append(self.ui.payM.text())
+        Vals.append(self.ui.amountL.text().replace("'", "''"))
+        Vals.append(self.ui.amountM.text().replace("'", "''"))
+        Vals.append(self.ui.payL.text().replace("'", "''"))
+        Vals.append(self.ui.payM.text().replace("'", "''"))
 
-        Vals.append(self.ui.Owner.text())
+        Vals.append(self.ui.Owner.text().replace("'", "''"))
         epy = [1, 1, 0, 0, 0, 0, 0]
         if self.ui.nstatus.isChecked():
             epy[2] = 1
@@ -201,11 +201,11 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            status = self.res1[row][4]
+            status = self.res1[row][4].replace("'", "''")
             if status == '发放中':
                 critical(self, "不能删除处于发放中状态的贷款记录")
             else:
-                lid = self.res1[row][0]
+                lid = self.res1[row][0].replace("'", "''")
                 self.db.execute("alter table Pay drop constraint FK_Apply;")
                 self.db.execute("alter table Bear drop constraint FK_Bear2;")
 

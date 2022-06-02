@@ -23,14 +23,14 @@ class LoginDialog(QDialog):
     def ob(self):
         Vals = []
         Vats = ['Client_ID', 'Client_Name', 'Client_Tel', 'Client_Address', 'Contact_Name', 'Contact_Email', 'Contact_Tel', 'Relation']
-        Vals.append(self.ui.Id.text())
-        Vals.append(self.ui.Name.text())
-        Vals.append(self.ui.Tel.text())
-        Vals.append(self.ui.Addr.text())
-        Vals.append(self.ui.CName.text())
-        Vals.append(self.ui.CTel.text())
-        Vals.append(self.ui.CEm.text())
-        Vals.append(self.ui.Rel.text())
+        Vals.append(self.ui.Id.text().replace("'", "''"))
+        Vals.append(self.ui.Name.text().replace("'", "''"))
+        Vals.append(self.ui.Tel.text().replace("'", "''"))
+        Vals.append(self.ui.Addr.text().replace("'", "''"))
+        Vals.append(self.ui.CName.text().replace("'", "''"))
+        Vals.append(self.ui.CTel.text().replace("'", "''"))
+        Vals.append(self.ui.CEm.text().replace("'", "''"))
+        Vals.append(self.ui.Rel.text().replace("'", "''"))
         res = self.db.execute("select count(*) from Client where Client_ID = '" + Vals[0] + "';")
         if Vals[0] is '':
             critical(self, "身份证号不能为空")         

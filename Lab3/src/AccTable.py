@@ -149,14 +149,14 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.tableck.indexAt(button.parent().pos()).row()
-            dialog = OWN(self, self.res1[row][0], '1')
+            dialog = OWN(self, self.res1[row][0].replace("'", "''"), '1')
             dialog.exec_()
     
     def OwnerBtn2(self):
         button = self.sender()
         if button:
             row = self.ui.tableck.indexAt(button.parent().pos()).row()
-            dialog = OWN(self, self.res2[row][0], '2')
+            dialog = OWN(self, self.res2[row][0].replace("'", "''"), '2')
             dialog.exec_()
 
     def AddButton(self):
@@ -171,7 +171,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.tableck.indexAt(button.parent().pos()).row()
-            dialog = Updck(self, self.res1[row][0])
+            dialog = Updck(self, self.res1[row][0].replace("'", "''"))
             dialog.exec_()
             self.renderTable1()
 
@@ -179,24 +179,24 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.tableck.indexAt(button.parent().pos()).row()
-            dialog = Updzp(self, self.res2[row][0])
+            dialog = Updzp(self, self.res2[row][0].replace("'", "''"))
             dialog.exec_()
             self.renderTable2()
 
     def SearchButton(self):
         Vals = []
-        Vals.append(self.ui.Id.text())
-        Vals.append(self.ui.Name.text())
-        Vals.append(self.ui.Type.text())
-        Vals.append(self.ui.YEL.text())
-        Vals.append(self.ui.YEM.text())
-        Vals.append(self.ui.DateL.text())
-        Vals.append(self.ui.DateM.text())
-        Vals.append(self.ui.LLL.text())
-        Vals.append(self.ui.LLM.text())
-        Vals.append(self.ui.TZL.text())
-        Vals.append(self.ui.TZM.text())
-        Vals.append(self.ui.Owner.text())
+        Vals.append(self.ui.Id.text().replace("'", "''"))
+        Vals.append(self.ui.Name.text().replace("'", "''"))
+        Vals.append(self.ui.Type.text().replace("'", "''"))
+        Vals.append(self.ui.YEL.text().replace("'", "''"))
+        Vals.append(self.ui.YEM.text().replace("'", "''"))
+        Vals.append(self.ui.DateL.text().replace("'", "''"))
+        Vals.append(self.ui.DateM.text().replace("'", "''"))
+        Vals.append(self.ui.LLL.text().replace("'", "''"))
+        Vals.append(self.ui.LLM.text().replace("'", "''"))
+        Vals.append(self.ui.TZL.text().replace("'", "''"))
+        Vals.append(self.ui.TZM.text().replace("'", "''"))
+        Vals.append(self.ui.Owner.text().replace("'", "''"))
         if self.ui.comboBox.currentText() == "存款账户":
             self.SearchButton1(Vals[0:9] + Vals[11:])
         elif self.ui.comboBox.currentText() == "支票账户":
@@ -281,7 +281,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.tableck.indexAt(button.parent().pos()).row()
-            tid = self.res1[row][0]
+            tid = self.res1[row][0].replace("'", "''")
             rn2 = self.db.execute("select Bank_Name from Account where Account_ID = '" + tid + "';")
 
             self.db.execute("alter table Saving_Account drop constraint FK_Account_Type1;")
@@ -290,7 +290,7 @@ class TablePage(Qtt.QDialog):
             self.db.execute("delete from Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Saving_Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
-            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]) + "' and Account_Type = 2")
+            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
 
             self.db.execute("alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_ID) references Account (Account_ID);")
             self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
@@ -300,7 +300,7 @@ class TablePage(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.tablezp.indexAt(button.parent().pos()).row()
-            tid = self.res2[row][0]
+            tid = self.res2[row][0].replace("'", "''")
             rn2 = self.db.execute("select Bank_Name from Account where Account_ID = '" + tid + "';")
 
             self.db.execute("alter table Checking_Account drop constraint FK_Account_Type2;")
@@ -309,7 +309,7 @@ class TablePage(Qtt.QDialog):
             self.db.execute("delete from Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Checking_Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
-            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]) + "' and Account_Type = 2")
+            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
 
             self.db.execute("alter table Checking_Account add constraint FK_Account_Type2 foreign key (Account_ID) references Account (Account_ID);")
             self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")

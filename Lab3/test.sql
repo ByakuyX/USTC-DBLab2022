@@ -28,4 +28,6 @@ insert into own value('ff', 114515);
 insert into Checking value('fff', 'B', 1);
 insert into Checking value('ff', 'B', 1);
 insert into Checking value('ff', 'C', 2);
-
+insert into Service value('ff', '1', 'A');
+insert into Service value('e', '1', 'A');
+insert into Service value('ddd', '2', 'B');

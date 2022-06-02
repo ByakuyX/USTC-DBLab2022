@@ -55,7 +55,7 @@ class LoginDialog(Qtt.QDialog):
                 if row[i] is None:
                     ro.append('')
                 else:
-                    ro.append(str(row[i]))
+                    ro.append(str(row[i]).upper())
             for i in range(0, len(ro)):
                 item.append(Qtt.QTableWidgetItem(ro[i]))
                 item[i].setTextAlignment(QtCore.Qt.AlignCenter)
@@ -86,14 +86,14 @@ class LoginDialog(Qtt.QDialog):
         button = self.sender()
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
-            tid = self.res[row][0]
+            tid = self.res[row][0].replace("'", "''")
             self.db.execute("delete from Own where Client_ID = '" + tid + "' and Account_ID = '" + self.title + "';")
             self.db.execute("delete from Checking where Client_ID = '" + tid + "' and Account_Type = '" + self.type + "' and Bank_Name = '" + self.bank + "';")
             self.renderTable()
     
     def AddButton(self):
         # 人不存在，人已经持有此账户，人已经在此银行持有同类账户
-        tid = self.ui.addedit.text()
+        tid = self.ui.addedit.text().replace("'", "''")
         r1 = self.db.execute("select count(*) from Client where Client_ID = '" + tid + "';")
         r2 = self.db.execute("select count(*) from Own where Client_ID = '" + tid + "' and Account_ID = '" + self.title + "';")
         r3 = self.db.execute("select count(*) from Checking where Client_ID = '" + tid + "' and Account_Type = '" + self.type + "' and Bank_Name = '" + self.bank + "';")

@@ -8,11 +8,31 @@ create table Bank(
    City         varchar(50) not null,
    Assets       float(15)   not null
 );
-insert into Bank value('A', '1', '11451400');
-insert into Bank value('B', '1', '19198100');
-insert into Bank value('C', '2', '98765432');
-insert into Bank value('D', '3', '23333333');
-insert into Bank value('Tiansuo_Haoer', 'Xia_Beize', '114514');
+
+# 部门
+create table Department
+(
+   Department_ID         varchar(50) not null primary key,
+   Department_Name       varchar(50) not null,
+   Department_Type       varchar(50),
+   Manager_ID   		 varchar(50)
+);
+
+# 员工
+create table Employee
+(
+   Employee_ID         varchar(50) not null primary key,
+   Employee_Name       varchar(50) not null,
+   Bank_Name       	   varchar(50) not null,
+   Department_ID       varchar(50),
+   Employee_Tel        int,
+   Employee_Address    varchar(50),
+   Work_Date   		   date
+);
+alter table Employee add constraint FK_Belong_To foreign key (Department_ID)
+      references Department (Department_ID);
+alter table Employee add constraint FK_Employ foreign key (Bank_Name)
+      references Bank (Bank_Name);
 
 # 客户
 create table Client
@@ -116,3 +136,27 @@ alter table Bear add constraint FK_Bear1 foreign key (Client_ID)
    references Client (Client_ID);
 alter table Bear add constraint FK_Bear2 foreign key (Loan_ID)
    references Loan (Loan_ID);
+   
+# 服务
+create table Service
+(
+   Client_ID         varchar(50) not null,
+   Employee_ID       varchar(50) not null,
+   Service_Type      varchar(50),
+   primary key (Client_ID, Employee_ID)
+);
+alter table Service add constraint FK_Service foreign key (Client_ID)
+      references Client (Client_ID);
+alter table Service add constraint FK_Service2 foreign key (Employee_ID)
+      references Employee (Employee_ID);
+
+insert into Bank value('A', '1', '11451400');
+insert into Bank value('B', '1', '19198100');
+insert into Bank value('C', '2', '98765432');
+insert into Bank value('D', '3', '23333333');
+insert into Bank value('T''H', 'LTS', '114');
+insert into Department value('1', 'X', '1', '1');
+insert into Department value('2', 'Y', '2', '2');
+insert into Employee value('1', 'A', 'A', '1', '1', '1', '2020-01-01');
+insert into Employee value('2', 'B', 'C', '2', '1', '1', '2020-01-01');
+	 
