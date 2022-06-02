@@ -287,11 +287,11 @@ class TablePage(Qtt.QDialog):
             self.db.execute("alter table Saving_Account drop constraint FK_Account_Type1;")
             self.db.execute("alter table Own drop constraint FK_Own2;")
 
+            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 1")
             self.db.execute("delete from Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Saving_Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
-            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
-
+            
             self.db.execute("alter table Saving_Account add constraint FK_Account_Type1 foreign key (Account_ID) references Account (Account_ID);")
             self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
             self.renderTable1()
@@ -306,11 +306,11 @@ class TablePage(Qtt.QDialog):
             self.db.execute("alter table Checking_Account drop constraint FK_Account_Type2;")
             self.db.execute("alter table Own drop constraint FK_Own2;")
 
+            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
             self.db.execute("delete from Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Checking_Account where Account_ID = '" + tid + "';")
             self.db.execute("delete from Own where Account_ID = '" + tid + "';")
-            self.db.execute("delete from Checking where Client_ID in (select Client_ID from Own where Account_ID = '" + tid + "') and Bank_Name = '" + str(rn2[0][0]).replace("'", "''") + "' and Account_Type = 2")
-
+            
             self.db.execute("alter table Checking_Account add constraint FK_Account_Type2 foreign key (Account_ID) references Account (Account_ID);")
             self.db.execute("alter table Own add constraint FK_Own2 foreign key (Account_ID) references Account (Account_ID);")
             self.renderTable2()

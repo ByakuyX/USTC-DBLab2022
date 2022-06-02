@@ -102,10 +102,13 @@ class TablePage(Qtt.QDialog):
         if button:
             row = self.ui.table.indexAt(button.parent().pos()).row()
             tid = self.res[row][0].replace("'", "''")
-            rtt = self.db.execute(
-                "select count(*) from own, bear,checking where own.client_id = '" + tid + "' or checking.client_id = '" + tid + "' or bear.client_id = '" + tid + "';")
-            if rtt[0][0] > 0:
-                critical(self, "存在关联账户或贷款记录，不能删除")
+            rt1 = self.db.execute("select count(*) from own where client_id = '" + tid + "';")
+            rt2 = self.db.execute("select count(*) from bear where client_id = '" + tid + "';")
+            rt3 = self.db.execute("select count(*) from checking where client_id = '" + tid + "';")
+            if rt1[0][0] > 0 or rt3[0][0] > 0:
+                critical(self, "存在关联账户，不能删除")
+            elif rt2[0][0] > 0:
+                critical(self, "存在贷款记录，不能删除")
             else:
                 self.db.execute("alter table own drop constraint fk_own1;")
                 self.db.execute("alter table bear drop constraint fk_bear1;")
