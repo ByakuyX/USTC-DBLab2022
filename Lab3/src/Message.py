@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 from PyQt5.QtWidgets import QMessageBox
 
-
 def information(self, alarm):
     self.alarm = alarm
     QMessageBox.information(self, '提示', self.alarm, QMessageBox.Ok)
