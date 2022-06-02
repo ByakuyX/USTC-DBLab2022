@@ -53,13 +53,3 @@ class Menu(QMainWindow):
             self.ui.Yewu.setEnabled(True)
             self.ui.title.setText(self.dbName + " 已连接")
             self.ui.Denglu.setEnabled(False)
-        else:
-            self.ui.Daikuan.setEnabled(False)
-            self.ui.Zhanghu.setEnabled(False)
-            self.ui.Kehu.setEnabled(False)
-            self.ui.Yewu.setEnabled(False)
-            self.ui.title.setText("无连接")
-
-         
-   
-
