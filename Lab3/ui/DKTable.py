@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'dktable.ui'
+# Form implementation generated from reading ui file 'UI\dktable.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -54,6 +54,8 @@ class Ui_LoginDialog(object):
         self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.label_13.setObjectName("label_13")
         self.gridLayout_4.addWidget(self.label_13, 0, 0, 1, 1)
+        self.gridLayout_4.setColumnStretch(0, 3)
+        self.gridLayout_4.setColumnStretch(1, 2)
         self.gridLayout_2.addLayout(self.gridLayout_4, 0, 0, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 3, 1, 1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
